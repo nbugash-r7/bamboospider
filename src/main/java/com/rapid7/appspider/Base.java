@@ -51,6 +51,32 @@ public class Base {
         return null;
     }
 
+    public static JSONObject get(String apiCall, String authToken){
+        try{
+            //Create HTTP Client
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            // Initialized the get request
+            HttpGet getRequest = new HttpGet(apiCall);
+            getRequest.addHeader("Content-Type","application/x-www-form-urlencoded");
+            getRequest.addHeader("Authorization", "Basic " + authToken);
+
+            // Receive the response from AppSpider
+            HttpResponse getResponse = httpClient.execute(getRequest);
+            int statusCode = getResponse.getStatusLine().getStatusCode();
+            if (statusCode == SUCCESS){
+                // Return a JSONObject of the response
+                return new JSONObject(EntityUtils.toString(getResponse.getEntity()));
+            }else{
+                throw new RuntimeException("Failed! HTTP error code: "+ statusCode);
+            }
+        }catch(ClientProtocolException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      *
      * @param apiCall
@@ -75,7 +101,7 @@ public class Base {
             HttpResponse postResponse = httpClient.execute(postRequest);
             int statusCode = postResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
-                // Obtain the JSON Object of the reponse
+                // Obtain the JSON Object of the response
                 JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
                 return (String)jsonResponse.get("Token");
             }else{
@@ -87,6 +113,41 @@ public class Base {
         }catch (IOException e){
             e.printStackTrace();
         }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static JSONObject post(String apiCall, String authToken, Map<String,String> params){
+        try{
+            HttpClient httpClient = HttpClientBuilder.create().build();
+
+            HttpPost postRequest = new HttpPost(apiCall);
+
+            postRequest.addHeader("Content-Type","application/x-www-form-urlencoded");
+            postRequest.addHeader("Authorization","Basic "+ authToken);
+
+            if(!params.equals(null)){
+                ArrayList<BasicNameValuePair> urlParameters = new ArrayList<BasicNameValuePair>();
+                for(Map.Entry<String,String> entry : params.entrySet()){
+                    urlParameters.add(new BasicNameValuePair(entry.getKey(),entry.getValue()));
+                }
+                postRequest.setEntity(new UrlEncodedFormEntity(urlParameters));
+            }
+
+            HttpResponse postResponse = httpClient.execute(postRequest);
+            int statusCode = postResponse.getStatusLine().getStatusCode();
+            if (statusCode == SUCCESS){
+                //Obtain the JSON Object response
+                JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
+                return jsonResponse;
+            }else{
+                throw new RuntimeException("Failed! HTTP error code: " + statusCode);
+            }
+
+        }catch(ClientProtocolException e){
+            e.printStackTrace();
+        }catch(IOException e){
             e.printStackTrace();
         }
         return null;
