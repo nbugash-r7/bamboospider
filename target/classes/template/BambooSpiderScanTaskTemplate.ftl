@@ -1,5 +1,0 @@
-[@ww.textfield labelKey="AppSpider Restful Url" name="restUrl" required='true'/]
-[@ww.textfield labelKey="Login" name="login" required='true'/]
-[@ww.password  labelKey="Password" name="password" required='true'/]
-[@ww.textfield labelKey="Configuration name" name="scanConfig" required='true'/]
-[@ww.checkbox  labelKey="Enable scan after build finished?" name="scan" value='true'/]

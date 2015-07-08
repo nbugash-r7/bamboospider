@@ -1,1 +1,0 @@
-[@ww.textfield labelKey='notification.condition.afterXfailed.numberFailed' value='${numFailedTimes}' name='numFailedTimes' /]

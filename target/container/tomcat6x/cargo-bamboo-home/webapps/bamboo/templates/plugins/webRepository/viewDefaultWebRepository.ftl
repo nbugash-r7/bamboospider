@@ -1,2 +1,0 @@
-[@ww.label labelKey='webRepositoryViewer.default.url' value='${plugin.webRepositoryUrl!}' hideOnNull='true' /]
-[@ww.label labelKey='webRepositoryViewer.default.module' value='${plugin.webRepositoryName!}' hideOnNull='true' /]
