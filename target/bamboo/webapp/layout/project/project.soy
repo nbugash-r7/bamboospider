@@ -1,0 +1,76 @@
+{namespace bamboo.layout}
+
+/**
+ * Project Header Actions
+ * @param projectKey
+ * @param hasEditPermission
+ */
+{template .projectActions}
+    {call aui.buttons.buttons}
+        {param content}
+            {call aui.buttons.button}
+                {param text: ' ' + getText('dashboard.wallboard.project') /}
+                {param tagName: 'a' /}
+                {param iconClass: 'icon icon-wallboard' /}
+                {param iconType: 'custom' /}
+                {param extraAttributes: [ 'href': contextPath() + '/telemetry.action?filter=project&projectKey=' + $projectKey ] /}
+            {/call}
+        {/param}
+    {/call}
+    {call aui.buttons.buttons}
+        {param content}
+            {call aui.buttons.button}
+                {param text: ' ' /}
+                {param tagName: 'a' /}
+                {param iconClass: 'aui-icon-small aui-iconfont-more' /}
+                {param iconType: 'aui' /}
+                {param dropdown2Target: 'buildConfigurationActions' /}
+            {/call}
+        {/param}
+    {/call}
+    {let $dropdownApplinks: [
+        'label': getText('applinks.section.title'),
+        'href': '/plugins/servlet/applinks/listEntityLinks/com.atlassian.applinks.api.application.bamboo.BambooProjectEntityType/' + $projectKey,
+        'type': 'configure'
+    ] /}
+    {call aui.dropdown2.contents}
+        {param id: 'buildConfigurationActions' /}
+        {param extraClasses: 'aui-style-default' /}
+        {param content}
+            {call aui.dropdown2.section}
+                {param content}
+                    {if $hasEditPermission}
+                        {call .projectActionsLinks}
+                            {param items: [$dropdownApplinks, [
+                                'label': getText('project.edit.title'),
+                                'href': '/project/admin/config/editProjectName.action?projectKey=' + $projectKey,
+                                'class': 'edit-project-name',
+                                'type': 'edit'
+                            ]] /}
+                        {/call}
+                    {else}
+                        {call .projectActionsLinks}
+                            {param items: [ $dropdownApplinks ] /}
+                        {/call}
+                    {/if}
+                {/param}
+            {/call}
+        {/param}
+    {/call}
+{/template}
+
+/**
+ * Builds list of links (private template)
+ * @param items
+ */
+{template .projectActionsLinks private="true"}
+    <ul>
+        {foreach $item in $items}
+            <li>
+                <a class="ui-icon-container {if $item.class}{$item.class}{/if}" href="{contextPath() + $item.href}">
+                    {call widget.icons.fontIcon}{param type: $item.type /}{/call} {$item.label}
+                </a>
+            </li>
+        {/foreach}
+    </ul>
+{/template}

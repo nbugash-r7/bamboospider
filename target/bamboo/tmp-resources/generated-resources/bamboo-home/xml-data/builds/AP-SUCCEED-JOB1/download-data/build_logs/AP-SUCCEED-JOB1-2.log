@@ -1,0 +1,29 @@
+simple	27-Jun-2011 16:18:27	Build AP-SUCCEED-JOB1-2 started building on agent Default Agent
+simple	27-Jun-2011 16:18:27	Updating source code to the latest revision
+simple	27-Jun-2011 16:18:27	Updated source code to revision: dummyVcsKey
+simple	27-Jun-2011 16:18:27	Executing build AP-SUCCEED-JOB1-2
+simple	27-Jun-2011 16:18:27	Running pre-build action: Build Number Stamper
+simple	27-Jun-2011 16:18:27	Running pre-build action: Clover Grails PreBuild Action
+simple	27-Jun-2011 16:18:27	Running pre-build action: VCS Version Collector
+simple	27-Jun-2011 16:18:27	Running pre-build action: Repository Isolation Enabler Action
+simple	27-Jun-2011 16:18:27	Running pre-build action: Maven Settings Prebuild Action
+simple	27-Jun-2011 16:18:27	Starting task 'Script'
+command	27-Jun-2011 16:18:27	Beginning to execute external process for build 'Another Project - Succeed - Default Job'<br /> ... running command line: /bin/sh /Users/jdumay/code/jira-bamboo-plugin/target/container/tomcat6x/cargo-bamboo-home/temp/AP-SUCCEED-JOB1-2-ScriptBuildTask-4563918844039410319.sh<br /> ... in : /Users/jdumay/code/jira-bamboo-plugin/target/bamboo/home/xml-data/build-dir/AP-SUCCEED-JOB1<br />
+build	27-Jun-2011 16:18:27	foo
+simple	27-Jun-2011 16:18:27	Finished task 'Script'
+simple	27-Jun-2011 16:18:27	Running post build plugin 'NCover Results Collector'
+simple	27-Jun-2011 16:18:27	Running post build plugin 'Clover Results Collector'
+simple	27-Jun-2011 16:18:27	Running post build plugin 'Isolated Maven Repository Cleaner'
+simple	27-Jun-2011 16:18:27	Running post build plugin 'Artifact Copier'
+simple	27-Jun-2011 16:18:27	Running post build plugin 'Cleanup Build Processor'
+simple	27-Jun-2011 16:18:27	Finalising the build...
+simple	27-Jun-2011 16:18:27	Stopping timer.
+simple	27-Jun-2011 16:18:27	Build AP-SUCCEED-JOB1-2 completed.
+simple	27-Jun-2011 16:18:27	Running on server: post build plugin 'NCover Results Collector'
+simple	27-Jun-2011 16:18:27	Running on server: post build plugin 'Clover Delta Calculator'
+simple	27-Jun-2011 16:18:27	Running on server: post build plugin 'Build Hanging Detection Configuration'
+simple	27-Jun-2011 16:18:27	All post build plugins have finished
+simple	27-Jun-2011 16:18:27	Generating build results summary...
+simple	27-Jun-2011 16:18:27	Saving build results to disk...
+simple	27-Jun-2011 16:18:28	Indexing build results...
+simple	27-Jun-2011 16:18:28	Finished building AP-SUCCEED-JOB1-2.

@@ -1,0 +1,257 @@
+<!--
+This file holds details of all the upgrades for Bamboo
+
+The makeup of this XML file is described here :
+
+<upgrades> The root node of the file. Everything should be contained within this node
+    <upgrade> Each upgrade element describes an upgrade task.
+        Attributes
+        1. build -  This defines the build that the upgrade applies to
+
+        <class> The class element defines the name of the class which performs the upgrade.
+        It MUST implement the interface com.atlassian.bamboo.upgrade.UpgradeTask
+-->
+
+<upgrades>
+
+  <!--
+    Validation tasks are run before bootstrap upgrade tasks. If any of them will report an error application will not run.
+    Additional attributes:
+    - build-min    when specified disables built-in version logic and makes this task run on existing installations that have build number
+                   equal or greater than specified
+    - build-max    when specified disables built-in version logic and makes this task run on existing installations that have build number
+                   equal or lesser than specified
+  -->
+  <validation>
+    <upgrade build="2901" class="com.atlassian.bamboo.upgrade.tasks.validation.BuildNumberApplicableForUpgrade"/>
+    <upgrade build="2902" class="com.atlassian.bamboo.upgrade.tasks.validation.PlanKeysCorrectlyFormatted"/>
+    <upgrade build="4300" build-min="4300" build-max="9999"
+             class="com.atlassian.bamboo.upgrade.tasks.validation.ThereIsSingleRowInHibernateUniqueKeyTable"/>
+    <upgrade build="4410" build-min="4410" build-max="9999"
+             class="com.atlassian.bamboo.upgrade.tasks.validation.BranchKeyStartsWithMastersChainKey"/>
+  </validation>
+
+  <bootstrap>
+    <!-- 4.0 starts with 2900 -->
+    <!-- 4.3 starts with 3300 -->
+    <upgrade build="3303">
+      <class>com.atlassian.bamboo.upgrade.tasks.BootstrapUpgradeTask3303UsePositiveFlagInGlobalBuildExpiryConfig</class>
+    </upgrade>
+
+    <!-- 5.0 starts with 3600 -->
+    <!-- 5.2 starts with 4000 -->
+
+    <!-- Version 5.3 -->
+    <upgrade build="4101">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_3.UpgradeTask4101InitialiseAdminConfigForXsrf</class>
+    </upgrade>
+
+    <!-- Version 5.4 -->
+    <upgrade build="4204" class="com.atlassian.bamboo.upgrade.tasks.v5_4.BootstrapUpgradeTask4204DeleteIndexDirectory"/>
+
+    <!-- Version 5.5 (starts with 4300) -->
+    <upgrade build="4300" class="com.atlassian.bamboo.upgrade.tasks.v5_5.UpgradeTask4300MakeSureThereIsSingleRowInHibernateUniqueKeyTable"/>
+
+    <!-- Version 5.6 (starts with 4400) -->
+    <upgrade build="4403" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4403MoveSpotInstancesConfigurationToBandanaPhase1"/>
+    <upgrade build="4406" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4406EnableTestQuarantineByDefault"/>
+    <upgrade build="4409" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4409UpdateBuildExpirySettingsForOnDemand"/>
+
+    <!-- Version 5.7 (starts with 5700) -->
+    <upgrade build="5706" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5706RenameElasticIpManagement"/>
+    <upgrade build="5707" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5707RemoveUnconfigurableFeatureDefaults"/>
+    <upgrade build="5708" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5708RemoveSpotInstancesConfigurationFromAdministrationConfiguration"/>
+    <upgrade build="5713" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5713PrepareExpiryConfigurationForNewDeploymentExpiry"/>
+
+    <!-- Version 5.8 (starts with 5800) -->
+    <upgrade build="5801" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5801ImproveDeploymentExpiryConfigSerialization"/>
+    <upgrade build="5858" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5858IncreaseCrowdSessionValidationInterval"/>
+    <upgrade build="5859" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5859RemoveDuplicateNotifications"/>
+    <upgrade build="5860" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5860UpdateHibernateDialect"/>
+    <upgrade build="5861" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5861DeleteOrphanedPlanVcsRevisionHistoryItems"/>
+
+    <!-- Version 5.9 (starts with 5900) -->
+    <upgrade build="5901" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5901UpdateQuarantineSettingsStructureInAdminConfig"/>
+    <upgrade build="5903" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5903MoveArtifactHandlerConfigToBandanaPhase1"/>
+    <upgrade build="5909" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5909CreateStorageLimitsSetting"/>
+    <upgrade build="5910" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5910RemoveInvalidTrustedAppData"/>
+    <upgrade build="5911" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5911MoveTrustedAppsToBandanaPhase1"/>
+    <upgrade build="5913" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5913CleanupTemporaryArtifactStorage"/>
+  </bootstrap>
+
+  <postBootstrap>
+    <!-- 4.0 starts with 2900 -->
+    <upgrade build="2901">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask2901SetDefaultQuarantinedValue</class>
+    </upgrade>
+    <upgrade build="2902">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask2902SetDefaultQuarantinedTestsCount</class>
+    </upgrade>
+    <upgrade build="2903">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask2903IntroduceVcsBranchTable</class>
+    </upgrade>
+    <upgrade build="2904">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask2904SetFailedChainNotification</class>
+    </upgrade>
+    <upgrade build="2906">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask2906DropMergeResultColumns</class>
+    </upgrade>
+
+    <!-- 4.1 starts with 3000 -->
+    <upgrade build="3007">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3007ChangeJiraIssueLinksFromFixed2Related</class>
+    </upgrade>
+    <upgrade build="3008">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3008RemoveMarkedForDeletionJobRepositoryLinks</class>
+    </upgrade>
+    <upgrade build="3105">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3105FixSvnAutoUrlForBranchTagOptions</class>
+    </upgrade>
+
+    <!-- 4.2 starts with 3200 -->
+    <upgrade build="3200">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3200TrimAuthorNames</class>
+    </upgrade>
+    <upgrade build="3201">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3201CreateShareRepositoryAcls</class>
+    </upgrade>
+    <upgrade build="3202">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3202PruneBranchJobBuildDefinitions</class>
+    </upgrade>
+
+    <upgrade build="3204">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3204PrepopulateJiraLinkRequiredField</class>
+    </upgrade>
+    <upgrade build="3205">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3205MigrateCustomBitbucketToPlainHg</class>
+    </upgrade>
+    <upgrade build="3206">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3206LinkExistingBranches</class>
+    </upgrade>
+    <upgrade build="3207">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3207SwitchBranchExpiryOff</class>
+    </upgrade>
+    <upgrade build="3208">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3208UpdateBrokenCapabilities</class>
+    </upgrade>
+    <upgrade build="3209">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3209RemoveSuperflousBranchJobData</class>
+    </upgrade>
+    <upgrade build="3210">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3210IncreaseVariableSizeTo4000</class>
+    </upgrade>
+    <upgrade build="3211">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3211AddNativeGitCapability</class>
+    </upgrade>
+    <upgrade build="3213">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3213RemoveMinorRevisionsFromCapabilities</class>
+    </upgrade>
+
+    <!-- 4.3 starts with 3300 -->
+    <upgrade build="3302">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3302RemoveMinorRevisionsFromCapabilities</class>
+    </upgrade>
+    <upgrade build="3304">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3304SetDefaultOnceOffForBuildResultSummary</class>
+    </upgrade>
+    <upgrade build="3305">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3305ConvertBuildStrategyConfiguration</class>
+    </upgrade>
+    <upgrade build="3306">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3306SetDefaultRebuildForBuildResultSummary</class>
+    </upgrade>
+    <upgrade build="3307">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3307SetDefaultCustomBuildForBuildResultSummary</class>
+    </upgrade>
+    <upgrade build="3308">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3308EnableSandboxedPhpUnitInstalls</class>
+    </upgrade>
+    <upgrade build="3309">
+      <class>com.atlassian.bamboo.upgrade.tasks.UpgradeTask3309RemoveRepositoryDefinitingWorkingDirFromJobBranches</class>
+    </upgrade>
+
+    <!--version 5.0 starts with 3600-->
+    <!--obsolete upgrade tasks 3601 - 3606 removed -->
+    <upgrade build="3607">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3607PopulateArtifactTable</class>
+    </upgrade>
+    <upgrade build="3608">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3608DropObsoleteArtifactLinkColumns</class>
+    </upgrade>
+    <upgrade build="3609">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3609LinkDeploymentVersionsToArtifacts</class>
+    </upgrade>
+    <upgrade build="3610">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3610DetachCommentsFromResultSummaries</class>
+    </upgrade>
+    <upgrade build="3611">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3611SeparateBuildNumberAndPlanKeyForVersions</class>
+    </upgrade>
+    <upgrade build="3612">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3612DropObsoleteVersionNamingColumn</class>
+    </upgrade>
+    <upgrade build="3613">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3613InitOrderingOfEnvironments</class>
+    </upgrade>
+    <upgrade build="3614">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3614SplitPlanResultKeyInArtifactDeploymentVersionItem</class>
+    </upgrade>
+    <upgrade build="3615">
+      <class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3615SplitPlanResultKeyInArtifact</class>
+    </upgrade>
+
+    <!-- Upgrade task disabled. See: https://jira.atlassian.com/browse/ROTP-1557 -->
+    <!-- Note: Will need to add this upgrade task to the end of the list when it is eventually enabled-->
+    <!--<upgrade build="3616">-->
+    <!--<class>com.atlassian.bamboo.upgrade.tasks.v5_0.UpgradeTask3616CreateDefaultUsersGroup</class>-->
+    <!--</upgrade>-->
+
+    <!-- version 5.1 -->
+    <upgrade build="3816" class="com.atlassian.bamboo.upgrade.tasks.v5_1.UpgradeTask3816AddMissingRequirementsToDeploymentTasks"/>
+
+    <!-- version 5.2 -->
+    <upgrade build="4002" class="com.atlassian.bamboo.upgrade.tasks.v5_2.UpgradeTask4002AddBranchInformationToDeploymentTriggers"/>
+    <upgrade build="4003" class="com.atlassian.bamboo.upgrade.tasks.v5_2.UpgradeTask4003InitialiseBranchNameInDeploymentVersions"/>
+
+    <!-- Version 5.4 -->
+    <upgrade build="4206" class="com.atlassian.bamboo.upgrade.tasks.v5_4.UpgradeTask4206EnforceReindex"/>
+
+    <!-- Version 5.5 (starts with 4300) -->
+    <upgrade build="4301" class="com.atlassian.bamboo.upgrade.tasks.v5_5.UpgradeTask4301EnableFusionCapability"/>
+    <upgrade build="4303" class="com.atlassian.bamboo.upgrade.tasks.v5_5.UpgradeTask4303InitialiseAdminConfigForXsrfOnDemand"/>
+    <upgrade build="4304" class="com.atlassian.bamboo.upgrade.tasks.v5_5.UpgradeTask4304InitCommitForeignFlag"/>
+
+    <!-- Version 5.6 (starts with 4400) -->
+    <upgrade build="4402" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4402SetLimitsFromLicense"/>
+    <upgrade build="4405" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4405PartialReindexForQuickSearch"/>
+    <upgrade build="4407" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4407RemoveOrphanedBuildDataOnDemandOnly"/>
+    <upgrade build="4408" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4408ResizeVariableContextValueField"/>
+    <upgrade build="4410" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4410SetNextBranchKeyNumber"/>
+    <upgrade build="4411" class="com.atlassian.bamboo.upgrade.tasks.v5_6.UpgradeTask4411MoveSpotInstancesConfigurationToBandanaPhase2"/>
+
+    <!-- Version 5.7 (starts with 5700) -->
+    <upgrade build="5701" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5701InitLegacyEbsFlagToTrue"/>
+    <upgrade build="5702" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5702InitLegacyEbsFlagToFalse"/>
+    <upgrade build="5710" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5710InitResultFormatVersion"/>
+    <upgrade build="5711" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5711UpdateBuildExpiryConfigurationForOnDemand"/>
+    <upgrade build="5712" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5712SetDefaultSkippedTestsCount"/>
+    <upgrade build="5714" class="com.atlassian.bamboo.upgrade.tasks.v5_7.UpgradeTask5714InitVersionAgeZeroPoint"/>
+
+    <!-- Version 5.8 (starts with 5800) -->
+    <upgrade build="5852" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5852ConvertBuildStrategiesToTriggers"/>
+    <upgrade build="5853" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5853ConvertEnvironmentTriggers"/>
+    <upgrade build="5854" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5854ResizeElasticInstanceColumns"/>
+    <upgrade build="5857" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5857CleanupStaleAgentAssignmentsEntities"/>
+    <upgrade build="5862" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5862RenameStockElasticImageConfigurations"/>
+    <upgrade build="5865" class="com.atlassian.bamboo.upgrade.tasks.v5_8.UpgradeTask5865ChangeWindowsOsNameForStockElasticImageConfigurations"/>
+
+    <!-- Version 5.9 (starts with 5900) -->
+    <upgrade build="5904" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5904MoveArtifactHandlerConfigToBandanaPhase2"/>
+    <upgrade build="5905" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5905UpdateDefaultArtifactHandlerConfiguration"/>
+    <upgrade build="5907" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5907UpdateSshCredentialsConfiguration"/>
+    <upgrade build="5908" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5908ReEnablePerPlanBuildExpiryConfiguration"/>
+    <upgrade build="5912" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5912MoveTrustedAppsToBandanaPhase2"/>
+    <upgrade build="5914" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5914UpdatePlanBranchMonitoringSettings"/>
+    <upgrade build="5915" class="com.atlassian.bamboo.upgrade.tasks.v5_9.UpgradeTask5915CleanUpObsoletePlanBranchMonitoringSetting"/>
+  </postBootstrap>
+</upgrades>

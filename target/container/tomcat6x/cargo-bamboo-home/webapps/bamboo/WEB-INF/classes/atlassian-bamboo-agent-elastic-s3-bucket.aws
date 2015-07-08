@@ -1,0 +1,26 @@
+#Wed Jun 24 02:25:37 UTC 2015
+assembly.bucket=bamboo-agent-release
+image.ASIA_PACIFIC_NE_1.EBS.x86_64.linux.Ubuntu=ami-8946a989
+image.US_EAST_1.S3.i386.linux.Amazon\ Linux=ami-b69dd0de
+image.SOUTH_AMERICA_1.EBS.x86_64.windows.Windows=ami-f550d6e8
+image.ASIA_PACIFIC_NE_1.EBS.x86_64.windows.Windows=ami-b4f520b4
+image.US_EAST_1.EBS.x86_64.linux.Amazon\ Linux=ami-949bd6fc
+image.US_EAST_1.EBS.x86_64.windows.Windows=ami-50697038
+image.US_EAST_1.EBS.x86_64.linux.Ubuntu=ami-1c247d74
+image.ASIA_PACIFIC_SE_1.EBS.x86_64.linux.Ubuntu=ami-f6a691a4
+image.ASIA_PACIFIC_SE_2.EBS.x86_64.linux.Ubuntu=ami-0f0c7d35
+image.EU_WEST_1.EBS.x86_64.linux.Ubuntu=ami-ddf969aa
+image.ASIA_PACIFIC_SE_1.EBS.x86_64.windows.Windows=ami-c21a2390
+image.US_EAST_1.EBS.x86_64.windows.Windows\ 2008=ami-976edafe
+image.US_EAST_1.S3.x86_64.linux.Amazon\ Linux=ami-889dd0e0
+image.ASIA_PACIFIC_SE_2.EBS.x86_64.windows.Windows=ami-fb81ffc1
+image.US_WEST_1.EBS.x86_64.linux.Ubuntu=ami-95c92dd1
+image.US_WEST_2.EBS.x86_64.linux.Ubuntu=ami-f7a686c7
+assembly.key=5.9.1/df4b3553694ce2ecfc96acbe4105c1f7a8591d6a
+image.EU_WEST_1.EBS.x86_64.windows.Windows=ami-1f750268
+image.EU_CENTRAL_1.EBS.x86_64.windows.Windows=ami-e0f4cafd
+image.US_EAST_1.EBS.i386.linux.Amazon\ Linux=ami-489bd620
+image.SOUTH_AMERICA_1.EBS.x86_64.linux.Ubuntu=ami-e3972efe
+image.US_WEST_1.EBS.x86_64.windows.Windows=ami-6b3bd22f
+image.EU_CENTRAL_1.EBS.x86_64.linux.Ubuntu=ami-fac5f7e7
+image.US_WEST_2.EBS.x86_64.windows.Windows=ami-77764b47

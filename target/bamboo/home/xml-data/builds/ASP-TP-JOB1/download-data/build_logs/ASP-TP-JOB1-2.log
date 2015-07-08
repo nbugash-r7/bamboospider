@@ -1,0 +1,25 @@
+simple	08-Jul-2015 13:44:37	Build AppSpider Plugin - Test plan - Bamboo job with appspider scan #2 (ASP-TP-JOB1-2) started building on agent Default Agent
+simple	08-Jul-2015 13:44:37	
+simple	08-Jul-2015 13:44:37	Build working directory is /home/nbugash/Development/rapid7/appspider/bamboo/bamboospider/target/bamboo/home/xml-data/build-dir/ASP-TP-JOB1
+simple	08-Jul-2015 13:44:37	Executing build AppSpider Plugin - Test plan - Bamboo job with appspider scan #2 (ASP-TP-JOB1-2)
+simple	08-Jul-2015 13:44:37	Running pre-build action: VCS Version Collector
+simple	08-Jul-2015 13:44:37	Starting task 'Scan the build [Build Name] after it is complete' of type 'com.rapid7.bamboospider:test'
+simple	08-Jul-2015 13:44:37	Finished task 'Scan the build [Build Name] after it is complete' with result: Failed
+simple	08-Jul-2015 13:44:37	Running post build plugin 'npm Cache Cleanup'
+simple	08-Jul-2015 13:44:37	Running post build plugin 'NCover Results Collector'
+simple	08-Jul-2015 13:44:37	Running post build plugin 'Clover Results Collector'
+simple	08-Jul-2015 13:44:37	Running post build plugin 'Docker Container Cleanup'
+simple	08-Jul-2015 13:44:37	Running post build plugin 'Artifact Copier'
+simple	08-Jul-2015 13:44:37	Finalising the build...
+simple	08-Jul-2015 13:44:37	Stopping timer.
+simple	08-Jul-2015 13:44:37	Build ASP-TP-JOB1-2 completed.
+simple	08-Jul-2015 13:44:37	Running on server: post build plugin 'NCover Results Collector'
+simple	08-Jul-2015 13:44:37	Running on server: post build plugin 'Clover Delta Calculator'
+simple	08-Jul-2015 13:44:37	Running on server: post build plugin 'Maven Dependencies Postprocessor'
+simple	08-Jul-2015 13:44:37	Running on server: post build plugin 'Build Hanging Detection Configuration'
+simple	08-Jul-2015 13:44:37	All post build plugins have finished
+simple	08-Jul-2015 13:44:37	Generating build results summary...
+simple	08-Jul-2015 13:44:37	Saving build results to disk...
+simple	08-Jul-2015 13:44:37	Logging substituted variables...
+simple	08-Jul-2015 13:44:37	Indexing build results...
+simple	08-Jul-2015 13:44:37	Finished building ASP-TP-JOB1-2.

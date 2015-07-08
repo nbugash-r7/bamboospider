@@ -1,0 +1,32 @@
+simple	08-Jul-2015 15:15:39	Build Sample Test Plan - Sample test - Default Job #1 (STP-ST-JOB1-1) started building on agent Default Agent
+simple	08-Jul-2015 15:15:39	
+simple	08-Jul-2015 15:15:39	Build working directory is /home/nbugash/Development/rapid7/appspider/bamboo/bamboospider/target/bamboo/home/xml-data/build-dir/STP-ST-JOB1
+simple	08-Jul-2015 15:15:39	Executing build Sample Test Plan - Sample test - Default Job #1 (STP-ST-JOB1-1)
+simple	08-Jul-2015 15:15:39	Running pre-build action: VCS Version Collector
+simple	08-Jul-2015 15:15:39	Starting task 'AppSpider scan after build finishes' of type 'com.rapid7.bamboospider:test'
+simple	08-Jul-2015 15:15:39	Value for restUrl: www.ontesting.appspider.com/rest/v1
+simple	08-Jul-2015 15:15:39	Value for login: loginname
+simple	08-Jul-2015 15:15:39	Value for password: loginpassword
+simple	08-Jul-2015 15:15:39	Value for scan config: scanconfigname
+simple	08-Jul-2015 15:15:39	Value for scan: true
+simple	08-Jul-2015 15:15:39	Scan was set to true
+simple	08-Jul-2015 15:15:39	Finished task 'AppSpider scan after build finishes' with result: Success
+simple	08-Jul-2015 15:15:39	Running post build plugin 'npm Cache Cleanup'
+simple	08-Jul-2015 15:15:39	Running post build plugin 'NCover Results Collector'
+simple	08-Jul-2015 15:15:39	Running post build plugin 'Clover Results Collector'
+simple	08-Jul-2015 15:15:39	Running post build plugin 'Docker Container Cleanup'
+simple	08-Jul-2015 15:15:39	Running post build plugin 'Artifact Copier'
+simple	08-Jul-2015 15:15:39	Finalising the build...
+simple	08-Jul-2015 15:15:39	Stopping timer.
+simple	08-Jul-2015 15:15:39	Build STP-ST-JOB1-1 completed.
+simple	08-Jul-2015 15:15:39	Running on server: post build plugin 'NCover Results Collector'
+simple	08-Jul-2015 15:15:39	Running on server: post build plugin 'Clover Delta Calculator'
+simple	08-Jul-2015 15:15:39	Running on server: post build plugin 'Maven Dependencies Postprocessor'
+simple	08-Jul-2015 15:15:39	Running on server: post build plugin 'Build Hanging Detection Configuration'
+simple	08-Jul-2015 15:15:39	Running on server: post build plugin 'BambooSpider Post Build'
+simple	08-Jul-2015 15:15:39	All post build plugins have finished
+simple	08-Jul-2015 15:15:39	Generating build results summary...
+simple	08-Jul-2015 15:15:39	Saving build results to disk...
+simple	08-Jul-2015 15:15:39	Logging substituted variables...
+simple	08-Jul-2015 15:15:39	Indexing build results...
+simple	08-Jul-2015 15:15:39	Finished building STP-ST-JOB1-1.

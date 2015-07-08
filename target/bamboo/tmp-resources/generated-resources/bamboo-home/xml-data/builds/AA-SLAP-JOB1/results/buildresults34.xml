@@ -1,0 +1,15 @@
+<BuildResults>
+  <myReasonForBuild>
+    <myReason>Code has changed</myReason>
+  </myReasonForBuild>
+  <myBuildState>
+    <myState>Failed</myState>
+  </myBuildState>
+  <myBuildErrors>
+    <string>svn: warning: &apos;svn\aa.txt&apos; is already under version control</string>
+  </myBuildErrors>
+  <myBuildNumber>34</myBuildNumber>
+  <myBuildDate>1248911172109</myBuildDate>
+  <myBuildDuration>2250</myBuildDuration>
+  <mySuccessfulTestResults/>
+</BuildResults>

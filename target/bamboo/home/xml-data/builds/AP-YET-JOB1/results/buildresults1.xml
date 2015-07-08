@@ -1,0 +1,15 @@
+<BuildResults>
+  <myReasonForBuild>
+    <myReason>Initial clean build</myReason>
+  </myReasonForBuild>
+  <myBuildState>
+    <myState>Successful</myState>
+  </myBuildState>
+  <myBuildErrors>
+    <string>svn: warning: &apos;svn\aa.txt&apos; is already under version control</string>
+  </myBuildErrors>
+  <myBuildNumber>1</myBuildNumber>
+  <myBuildDate>1248910413140</myBuildDate>
+  <myBuildDuration>2235</myBuildDuration>
+  <mySuccessfulTestResults/>
+</BuildResults>

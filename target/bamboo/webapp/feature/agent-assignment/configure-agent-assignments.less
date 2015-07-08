@@ -1,0 +1,60 @@
+@import "plugin://bamboo.web.resources.common/global.less";
+
+#no-item-row {
+    border: 0px;
+}
+
+.agent-assignments #no-item-selected {
+    position: inherit;
+}
+
+.agent-assignment-type,
+.agent-assignment-type .select2-container {
+    width: 220px;
+}
+
+.agent-assignment-operations {
+    width: 120px;
+}
+
+.agent-assignment-name {
+    .select2-container {
+        width: 100%;
+        min-width: 300px;
+    }
+
+    .select2-container .aui-icon {
+        position: absolute;
+        top: 50%;
+        margin-top: -8px;
+        right: 30px;
+    }
+}
+
+.select2-results,
+.agent-assignment-name {
+    .metadata {
+        .name {
+            display: inline-block;
+            vertical-align: middle;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .divider:before {
+            content: "\203A";
+            padding-left: @halfSpacing;
+            padding-right: @halfSpacing;
+        }
+
+        .columns1 {
+            max-width: 100%;
+        }
+        .columns2 {
+            max-width: 50%;
+        }
+        .columns3 {
+            max-width: 33%;
+        }
+    }
+}

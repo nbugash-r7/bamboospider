@@ -1,0 +1,29 @@
+simple	27-Jun-2011 16:17:08	Build AP-FAIL-JOB1-1 started building on agent Default Agent
+simple	27-Jun-2011 16:17:08	Updating source code to the latest revision
+simple	27-Jun-2011 16:17:08	Updated source code to revision: dummyVcsKey
+simple	27-Jun-2011 16:17:08	Executing build AP-FAIL-JOB1-1
+simple	27-Jun-2011 16:17:08	Running pre-build action: Build Number Stamper
+simple	27-Jun-2011 16:17:08	Running pre-build action: Clover Grails PreBuild Action
+simple	27-Jun-2011 16:17:08	Running pre-build action: VCS Version Collector
+simple	27-Jun-2011 16:17:08	Running pre-build action: Repository Isolation Enabler Action
+simple	27-Jun-2011 16:17:08	Running pre-build action: Maven Settings Prebuild Action
+simple	27-Jun-2011 16:17:08	Starting task 'JUnit Parser'
+simple	27-Jun-2011 16:17:08	Parsing test results...
+simple	27-Jun-2011 16:17:08	Failing task since test cases were expected but none were found.
+simple	27-Jun-2011 16:17:08	Finished task 'JUnit Parser'
+simple	27-Jun-2011 16:17:08	Running post build plugin 'NCover Results Collector'
+simple	27-Jun-2011 16:17:08	Running post build plugin 'Clover Results Collector'
+simple	27-Jun-2011 16:17:08	Running post build plugin 'Isolated Maven Repository Cleaner'
+simple	27-Jun-2011 16:17:08	Running post build plugin 'Artifact Copier'
+simple	27-Jun-2011 16:17:08	Running post build plugin 'Cleanup Build Processor'
+simple	27-Jun-2011 16:17:08	Finalising the build...
+simple	27-Jun-2011 16:17:08	Stopping timer.
+simple	27-Jun-2011 16:17:08	Build AP-FAIL-JOB1-1 completed.
+simple	27-Jun-2011 16:17:08	Running on server: post build plugin 'NCover Results Collector'
+simple	27-Jun-2011 16:17:08	Running on server: post build plugin 'Clover Delta Calculator'
+simple	27-Jun-2011 16:17:08	Running on server: post build plugin 'Build Hanging Detection Configuration'
+simple	27-Jun-2011 16:17:08	All post build plugins have finished
+simple	27-Jun-2011 16:17:08	Generating build results summary...
+simple	27-Jun-2011 16:17:08	Saving build results to disk...
+simple	27-Jun-2011 16:17:08	Indexing build results...
+simple	27-Jun-2011 16:17:08	Finished building AP-FAIL-JOB1-1.

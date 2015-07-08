@@ -1,0 +1,116 @@
+{namespace bamboo.feature.agent.assignment}
+
+/**
+ * @param item
+ */
+{template .entityItemResult}
+    <div class="metadata">
+        {foreach $name in $item.nameElements}
+            <span class="name columns{length($item.nameElements)} {if not isFirst($name)}divider{/if}">{$name}</span>
+        {/foreach}
+    </div>
+{/template}
+
+/**
+ * @param item
+ */
+{template .entityItemLabel}
+    <div class="metadata">
+        {foreach $name in $item.nameElements}
+            <span class="name columns{length($item.nameElements)} {if not isFirst($name)}divider{/if}">{$name}</span>
+        {/foreach}
+    </div>
+{/template}
+
+/**
+ * @param label
+ */
+{template .assignmentTypeItemResult}
+    <span>{$label}</span>
+{/template}
+
+/**
+ * @param capabilitiesTooltipUrl
+ * @param entities
+ * @param executableType
+ * @param agentId
+ * @param? addedEntity
+ */
+{template .entitiesList}
+ {if $entities and length($entities) > 0}
+    {foreach $entity in $entities}
+        <tr data-id="{$entity.executableId}" data-executableid="{$entity.executableId}" data-executabletype="{$entity.executableType}" data-executortype="{$executableType}" data-executorid="{$agentId}"  {if $addedEntity and $addedEntity.executableId == $entity.executableId}class="multi-select-added"{/if}>
+            {call .entityItem}
+                {param nameElements: $entity.nameElements/}
+                {param executableType: $entity.executableType/}
+                {param executableId: $entity.executableId/}
+                {param executableTypeLabel: $entity.executableTypeLabel/}
+                {param capabilitiesMatch: $entity.capabilitiesMatch/}
+                {param capabilitiesTooltipUrl: $capabilitiesTooltipUrl/}
+            {/call}
+        </tr>
+    {/foreach}
+{else}
+    <tr id="no-item-row">
+        <td colspan="3">
+            <div id="no-item-selected">
+                <h2>
+                    {if $executableType == 'IMAGE'}
+                        {getText('agents.image.assignment.no.assigned')}
+                    {else}
+                        {getText('agents.assignment.no.assigned')}
+                    {/if}
+                </h2>
+                <p>{getText('agents.assignment.no.assigned.description')}</p>
+            </div>
+        </td>
+    </tr>
+ {/if}
+{/template}
+
+/**
+ * @param nameElements
+ * @param executableType
+ * @param executableTypeLabel
+ * @param executableId
+ * @param capabilitiesMatch
+ * @param capabilitiesTooltipUrl url to show tooltip content when capabilities don't match. Must contain context path and '?'
+ */
+{template .entityItem private="true"}
+    <td>
+        {$executableTypeLabel}
+    </td>
+    <td>
+       {foreach $name in $nameElements}{$name}{if not isLast($name)} &rsaquo; {/if}{/foreach}
+    </td>
+    <td class="agent-assignment-operations">
+        {if not $capabilitiesMatch}
+            <span id="failed-capability-match-{$executableId}" class="aui-lozenge aui-lozenge-subtle aui-lozenge-error">{getText('agents.assignment.not.capable')}</span>{sp}
+            {if $executableType == 'JOB'}
+                {call bamboo.widget.tooltip.tooltip}
+                    {param trigger: '#failed-capability-match-' + $executableId/}
+                    {param url : $capabilitiesTooltipUrl +  '&jobId=' + $executableId/}
+                    {param showDelay: 300 /}
+                {/call}
+            {else}
+                {call bamboo.widget.tooltip.tooltip}
+                    {param trigger: '#failed-capability-match-' + $executableId/}
+                    {param url : $capabilitiesTooltipUrl +  '&environmentId=' + $executableId/}
+                    {param showDelay: 300 /}
+                {/call}
+            {/if}
+        {/if}
+        <a class='remove' href="#">
+            {call aui.icons.icon}
+                {param icon: 'remove' /}
+                {param useIconFont: true /}
+                {param accessibilityText: getText('global.buttons.delete') /}
+                {param extraAttributes: [ 'title': getText('global.buttons.delete') ] /}
+            {/call}
+        </a>
+    </td>
+{/template}
+
+
+
+
