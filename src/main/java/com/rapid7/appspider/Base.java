@@ -5,13 +5,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.*;
-
-import javax.swing.text.html.parser.Entity;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 /**
  * Created by nbugash on 08/07/15.
@@ -29,9 +29,22 @@ public class Base {
         try{
             //Create HTTP Client
             HttpClient httpClient = HttpClientBuilder.create().build();
-            // Initialized the get request
-            HttpGet getRequest = new HttpGet(apiCall);
-            getRequest.addHeader("Content-Type","application/x-www-form-urlencoded");
+
+            // Create HttpGet request
+            HttpGet getRequest;
+            if(!params.equals(null)){
+                URIBuilder uriBuilder = new URIBuilder(apiCall);
+                for(Map.Entry<String,String> entry : params.entrySet()){
+                    uriBuilder.addParameter(entry.getKey(), entry.getValue());
+                }
+                getRequest = new HttpGet(uriBuilder.build());
+            }else{
+                // Initialized the get request
+                getRequest = new HttpGet(apiCall);
+            }
+
+            // Add the authentication token
+            getRequest.addHeader("Content-Type" , "application/x-www-form-urlencoded");
             getRequest.addHeader("Authorization", "Basic " + authToken);
 
             // Receive the response from AppSpider
@@ -43,14 +56,21 @@ public class Base {
             }else{
                 throw new RuntimeException("Failed! HTTP error code: "+ statusCode);
             }
-        }catch(ClientProtocolException e){
+        } catch(ClientProtocolException e){
             e.printStackTrace();
-        }catch(IOException e){
+        } catch(IOException e){
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * @param apiCall
+     * @param authToken
+     * @return
+     */
     public static JSONObject get(String apiCall, String authToken){
         try{
             //Create HTTP Client
@@ -118,6 +138,12 @@ public class Base {
         return null;
     }
 
+    /**
+     * @param apiCall
+     * @param authToken
+     * @param params
+     * @return
+     */
     public static JSONObject post(String apiCall, String authToken, Map<String,String> params){
         try{
             HttpClient httpClient = HttpClientBuilder.create().build();
