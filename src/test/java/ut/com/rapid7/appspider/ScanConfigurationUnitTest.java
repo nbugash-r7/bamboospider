@@ -15,6 +15,7 @@ public class ScanConfigurationUnitTest extends BaseUnitTest{
     public void getConfigs(){
         String authToken = this.getAuthToken();
         Object configs = ScanConfiguration.getConfigs(this.getRestUrl(), authToken);
+
         assertEquals(JSONObject.class,configs.getClass());
     }
 }

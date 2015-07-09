@@ -17,7 +17,7 @@ public class ScanConfiguration extends Base {
         String apiCall = restUrl + GETCONFIGS;
         Object response = get(apiCall,authToken);
         if (response.getClass().equals(JSONObject.class)){
-            return new JSONObject(response);
+            return (JSONObject)response;
         }
         return null;
     }

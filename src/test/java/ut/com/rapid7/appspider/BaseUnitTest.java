@@ -5,20 +5,11 @@ import org.junit.Test;
  * Created by nbugash on 08/07/15.
  */
 public class BaseUnitTest {
-    private static String restUrl;
-    static {
-        restUrl = "http://ontesting.ntobjectives.com/ntoe36/rest/v1";
-    }
-
-    private static String username;
-    static {
-        username = "wstclient";
-    }
-
-    private static String password;
-    static {
-        password = "wstclient";
-    }
+    private static String restUrl = "http://10.4.87.166/AppSpiderEnterprise/rest/v1";
+    private static String username = "nbugash";
+    private static String password = "nbugash1";
+    private static String configName = "webscantest";
+    private static String configId   = "dc12468d-5e5f-4eb1-884c-bcc324a7b0e6";
 
     public static String getRestUrl() {
         return restUrl;
@@ -30,6 +21,14 @@ public class BaseUnitTest {
 
     public static String getPassword() {
         return password;
+    }
+
+    public static String getConfigName() {
+        return configName;
+    }
+
+    public static String getConfigId() {
+        return configId;
     }
 
     public String getAuthToken() {

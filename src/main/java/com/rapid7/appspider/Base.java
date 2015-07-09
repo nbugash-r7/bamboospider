@@ -10,7 +10,16 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.*;
+import org.jsoup.nodes.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.ws.rs.core.MediaType;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.*;
 /**
@@ -144,14 +153,14 @@ public class Base {
      * @param params
      * @return
      */
-    public static JSONObject post(String apiCall, String authToken, Map<String,String> params){
+    public static Object post(String apiCall, String authToken, Map<String,String> params){
         try{
             HttpClient httpClient = HttpClientBuilder.create().build();
 
             HttpPost postRequest = new HttpPost(apiCall);
 
-            postRequest.addHeader("Content-Type","application/x-www-form-urlencoded");
-            postRequest.addHeader("Authorization","Basic "+ authToken);
+            postRequest.addHeader("Content-Type", "application/x-www-form-urlencoded");
+            postRequest.addHeader("Authorization", "Basic " + authToken);
 
             if(!params.equals(null)){
                 ArrayList<BasicNameValuePair> urlParameters = new ArrayList<BasicNameValuePair>();
@@ -164,6 +173,26 @@ public class Base {
             HttpResponse postResponse = httpClient.execute(postRequest);
             int statusCode = postResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
+
+                String contentType = postResponse.getEntity().getContentType().getValue();
+                switch (contentType){
+                    case MediaType.APPLICATION_JSON:
+                        //Obtain the JSON Object response
+                        JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
+                        return jsonResponse;
+                    case MediaType.APPLICATION_XHTML_XML:
+                        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                        DocumentBuilder builder;
+                        try{
+                            builder = factory.newDocumentBuilder();
+                            return builder.parse(new InputSource( new StringReader( EntityUtils.toString(postResponse.getEntity()))));
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        }
+                }
+
                 //Obtain the JSON Object response
                 JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
                 return jsonResponse;
@@ -175,6 +204,33 @@ public class Base {
             e.printStackTrace();
         }catch(IOException e){
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Object getClassType(HttpResponse response){
+        String contentType = response.getEntity().getContentType().getValue();
+        switch (contentType){
+            case MediaType.APPLICATION_JSON:
+                //Obtain the JSON Object response
+                JSONObject jsonResponse = null;
+                try {
+                    jsonResponse = new JSONObject(EntityUtils.toString(response.getEntity()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return jsonResponse;
+            case MediaType.APPLICATION_XHTML_XML:
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder;
+                try{
+                    builder = factory.newDocumentBuilder();
+                    return builder.parse(new InputSource( new StringReader( EntityUtils.toString(response.getEntity()))));
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                } catch (SAXException e) {
+                    e.printStackTrace();
+                }
         }
         return null;
     }
