@@ -23,10 +23,10 @@ public class ReportManagementUnitTest extends BaseUnitTest {
 //        assertEquals(response.getClass(),JSONObject.class);
 //    }
 
-    @Test
-    public void getVulnerabilitiesSummaryXml(){
-        String authToken = Authentication.authenticate(restUrl,login,password);
-        Object response = ReportManagement.getVulnerabilitiesSummaryXml(restUrl, authToken, scanId );
-        response.toString();
-    }
+//    @Test
+//    public void getVulnerabilitiesSummaryXml(){
+//        String authToken = Authentication.authenticate(restUrl,login,password);
+//        Object response = ReportManagement.getVulnerabilitiesSummaryXml(restUrl, authToken, scanId );
+//        response.toString();
+//    }
 }
