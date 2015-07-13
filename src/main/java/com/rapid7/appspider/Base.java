@@ -173,27 +173,6 @@ public class Base {
             HttpResponse postResponse = httpClient.execute(postRequest);
             int statusCode = postResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
-
-                /* DEBUGGING: Need a way to cast the http reponse base on the content type */
-//                String contentType = postResponse.getEntity().getContentType().getValue();
-//                switch (contentType){
-//                    case MediaType.APPLICATION_JSON:
-//                        //Obtain the JSON Object response
-//                        JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
-//                        return jsonResponse;
-//                    case MediaType.APPLICATION_XHTML_XML:
-//                        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//                        DocumentBuilder builder;
-//                        try{
-//                            builder = factory.newDocumentBuilder();
-//                            return builder.parse(new InputSource( new StringReader( EntityUtils.toString(postResponse.getEntity()))));
-//                        } catch (ParserConfigurationException e) {
-//                            e.printStackTrace();
-//                        } catch (SAXException e) {
-//                            e.printStackTrace();
-//                        }
-//                }
-
                 //Obtain the JSON Object response
                 JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
                 return jsonResponse;
@@ -209,33 +188,33 @@ public class Base {
         return null;
     }
 
-//    private Object getClassType(HttpResponse response){
-//        String contentType = response.getEntity().getContentType().getValue();
-//        switch (contentType){
-//            case MediaType.APPLICATION_JSON:
-//                //Obtain the JSON Object response
-//                JSONObject jsonResponse = null;
-//                try {
-//                    jsonResponse = new JSONObject(EntityUtils.toString(response.getEntity()));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                return jsonResponse;
-//            case MediaType.APPLICATION_XHTML_XML:
-//                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//                DocumentBuilder builder;
-//                try{
-//                    builder = factory.newDocumentBuilder();
-//                    return builder.parse(new InputSource( new StringReader( EntityUtils.toString(response.getEntity()))));
-//                } catch (ParserConfigurationException e) {
-//                    e.printStackTrace();
-//                } catch (SAXException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//        }
-//        return null;
-//    }
+    private Object getClassType(HttpResponse response){
+        String contentType = response.getEntity().getContentType().getValue();
+        switch (contentType){
+            case MediaType.APPLICATION_JSON:
+                //Obtain the JSON Object response
+                JSONObject jsonResponse = null;
+                try {
+                    jsonResponse = new JSONObject(EntityUtils.toString(response.getEntity()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return jsonResponse;
+            case MediaType.APPLICATION_XHTML_XML:
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder;
+                try{
+                    builder = factory.newDocumentBuilder();
+                    return builder.parse(new InputSource( new StringReader( EntityUtils.toString(response.getEntity()))));
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                } catch (SAXException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+        return null;
+    }
 
 }
