@@ -4,6 +4,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import javax.swing.text.html.parser.Entity;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,12 +45,26 @@ public class ReportManagement extends Base {
      * @param scanId
      * @return
      */
-    public static Object getVulnerabilitiesSummaryXml(String restUrl, String authToken, String scanId){
+    public static File getVulnerabilitiesSummaryXml(String restUrl, String authToken, String scanId){
         String apiCall = restUrl + GETVULNERABILITIESSUMMARY;
         Map<String,String> params = new HashMap<String, String>();
         params.put("scanId",scanId);
-        Object response = get(apiCall,authToken,params);
-        response.toString();
-        return null;
+        String response = (String)get(apiCall,authToken,params);
+        return SaveToFile(scanId + (new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())) + ".xml" , response);
+    }
+
+    private static File SaveToFile(String filename, String data){
+        File file = new File(filename);
+        try {
+            if(!file.exists()) file.createNewFile();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+            bw.write(data);
+            bw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }

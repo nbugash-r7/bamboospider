@@ -11,15 +11,19 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.*;
-import org.jsoup.nodes.Document;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.management.RuntimeErrorException;
 import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -177,9 +181,6 @@ public class Base {
             int statusCode = postResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
                 return getClassType(postResponse);
-                //Obtain the JSON Object response
-                // JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
-                // return jsonResponse;
             }else{
                 throw new RuntimeException("Failed! HTTP error code: " + statusCode);
             }
@@ -213,15 +214,7 @@ public class Base {
                 StringWriter writer = new StringWriter();
                 IOUtils.copy(new InputStreamReader(response.getEntity().getContent()), writer);
                 String xmlResponse = writer.toString();
-                String trimed_xml = xmlResponse.trim();
-                // Building an XML object
-                builder = factory.newDocumentBuilder();
-                Document document = (Document) builder.parse(new InputSource(new StringReader(trimed_xml)));
-                return document;
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            } catch (SAXException e) {
-                e.printStackTrace();
+                return xmlResponse;
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<VulnSummary>
+<AppVersion>6.4.155.1</AppVersion>
+<ScanName>altoroManual</ScanName>
+<ScanStarted>2015-06-16 08:55:33</ScanStarted>
+<ScanDuration>00:00:55</ScanDuration>
+<ScanEnded>2015-06-16 08:56:28</ScanEnded>
+<UTCOffset>0</UTCOffset>
+<ResourcesCrawled>111</ResourcesCrawled>
+<NumberOfRequests>124</NumberOfRequests>
+<NumberOfFailedRequests>3</NumberOfFailedRequests>
+	<VulnList>
+	</VulnList>
+</VulnSummary>

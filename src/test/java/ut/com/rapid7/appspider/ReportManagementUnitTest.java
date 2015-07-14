@@ -3,6 +3,8 @@ import com.rapid7.appspider.Authentication;
 import com.rapid7.appspider.ReportManagement;
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,6 +29,6 @@ public class ReportManagementUnitTest extends BaseUnitTest {
     public void getVulnerabilitiesSummaryXml(){
         String authToken = Authentication.authenticate(restUrl,login,password);
         Object response = ReportManagement.getVulnerabilitiesSummaryXml(restUrl, authToken, scanId );
-        response.toString();
+        assertEquals(response.getClass(),File.class);
     }
 }
