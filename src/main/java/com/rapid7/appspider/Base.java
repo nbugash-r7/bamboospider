@@ -1,4 +1,5 @@
 package com.rapid7.appspider;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -14,12 +15,12 @@ import org.jsoup.nodes.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.management.RuntimeErrorException;
 import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
 /**
@@ -34,7 +35,7 @@ public class Base {
      * @param params
      * @return JSON Object of the Restful api call
      */
-    public static JSONObject get(String apiCall, String authToken, Map<String,String> params){
+    public static Object get(String apiCall, String authToken, Map<String,String> params){
         try{
             //Create HTTP Client
             HttpClient httpClient = HttpClientBuilder.create().build();
@@ -61,7 +62,8 @@ public class Base {
             int statusCode = getResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
                 // Return a JSONObject of the response
-                return new JSONObject(getResponse);
+                return getClassType(getResponse);
+//                return new JSONObject(getResponse);
             }else{
                 throw new RuntimeException("Failed! HTTP error code: "+ statusCode);
             }
@@ -94,7 +96,8 @@ public class Base {
             int statusCode = getResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
                 // Return a JSONObject of the response
-                return new JSONObject(EntityUtils.toString(getResponse.getEntity()));
+                // return new JSONObject(EntityUtils.toString(getResponse.getEntity()));
+                return (JSONObject) getClassType(getResponse);
             }else{
                 throw new RuntimeException("Failed! HTTP error code: "+ statusCode);
             }
@@ -131,8 +134,8 @@ public class Base {
             int statusCode = postResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
                 // Obtain the JSON Object of the response
-                JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
-                return (String)jsonResponse.get("Token");
+                JSONObject jsonResponse = (JSONObject) getClassType(postResponse);
+                return jsonResponse.getString("Token");
             }else{
                 throw new RuntimeException("Failed! HTTP error code: "+ statusCode);
             }
@@ -173,9 +176,10 @@ public class Base {
             HttpResponse postResponse = httpClient.execute(postRequest);
             int statusCode = postResponse.getStatusLine().getStatusCode();
             if (statusCode == SUCCESS){
+                return getClassType(postResponse);
                 //Obtain the JSON Object response
-                JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
-                return jsonResponse;
+                // JSONObject jsonResponse = new JSONObject(EntityUtils.toString(postResponse.getEntity()));
+                // return jsonResponse;
             }else{
                 throw new RuntimeException("Failed! HTTP error code: " + statusCode);
             }
@@ -188,31 +192,41 @@ public class Base {
         return null;
     }
 
-    private Object getClassType(HttpResponse response){
+    /**
+     * @param response
+     * @return
+     */
+    public static Object getClassType(HttpResponse response){
         String contentType = response.getEntity().getContentType().getValue();
-        switch (contentType){
-            case MediaType.APPLICATION_JSON:
-                //Obtain the JSON Object response
-                JSONObject jsonResponse = null;
-                try {
-                    jsonResponse = new JSONObject(EntityUtils.toString(response.getEntity()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return jsonResponse;
-            case MediaType.APPLICATION_XHTML_XML:
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder builder;
-                try{
-                    builder = factory.newDocumentBuilder();
-                    return builder.parse(new InputSource( new StringReader( EntityUtils.toString(response.getEntity()))));
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                } catch (SAXException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (contentType.contains(MediaType.APPLICATION_JSON)){
+            JSONObject jsonResponse = null;
+            try {
+                jsonResponse = new JSONObject(EntityUtils.toString(response.getEntity()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return jsonResponse;
+        } else if (contentType.contains(MediaType.TEXT_HTML) || contentType.contains(MediaType.TEXT_XML)){
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder;
+            try {
+                StringWriter writer = new StringWriter();
+                IOUtils.copy(new InputStreamReader(response.getEntity().getContent()), writer);
+                String xmlResponse = writer.toString();
+                String trimed_xml = xmlResponse.trim();
+                // Building an XML object
+                builder = factory.newDocumentBuilder();
+                Document document = (Document) builder.parse(new InputSource(new StringReader(trimed_xml)));
+                return document;
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new RuntimeException("Invalid content-type header");
         }
         return null;
     }
